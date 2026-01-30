@@ -1,13 +1,20 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Instagram, Mail, Github } from 'lucide-react'
+import { Instagram, Mail, Github, Menu, ChevronDown, X } from 'lucide-react'
 
 /**
  * Overlay: Manages the UI layer of the website.
  * Responsible for navigation, content sections, footers, and page transition animations.
  */
 const Overlay = ({ activeSection, setActiveSection }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
     const sections = ['profile', 'playlist', 'solution', 'contact']
+
+    // Close menu when a section is selected
+    const handleSectionChange = (section) => {
+        setActiveSection(section)
+        setIsMenuOpen(false)
+    }
 
     // Renders content based on the currently active section
     const renderContent = () => {
@@ -64,7 +71,7 @@ const Overlay = ({ activeSection, setActiveSection }) => {
 
     return (
         <div className="overlay">
-            {/* Top navigation menu */}
+            {/* Desktop Navigation */}
             <nav className="nav">
                 {sections.map(section => (
                     <button
@@ -76,6 +83,39 @@ const Overlay = ({ activeSection, setActiveSection }) => {
                     </button>
                 ))}
             </nav>
+
+            {/* Mobile Menu Trigger */}
+            <button
+                className="mobile-menu-btn"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                <span>{activeSection.toUpperCase()}</span>
+                <ChevronDown size={14} style={{ transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0)' }} />
+            </button>
+
+            {/* Mobile Dropdown */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div
+                        className="mobile-dropdown"
+                        initial={{ opacity: 0, y: -10, x: '-50%' }}
+                        animate={{ opacity: 1, y: 0, x: '-50%' }}
+                        exit={{ opacity: 0, y: -10, x: '-50%' }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        {sections.map(section => (
+                            <button
+                                key={section}
+                                className={`dropdown-item ${activeSection === section ? 'active' : ''}`}
+                                onClick={() => handleSectionChange(section)}
+                            >
+                                {section.toUpperCase()}
+                            </button>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Main content area: Animations applied on section transitions */}
             <main style={{ marginTop: 'auto', marginBottom: 'auto', width: '100%', display: 'flex', justifyContent: 'center' }}>

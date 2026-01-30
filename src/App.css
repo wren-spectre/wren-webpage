@@ -75,8 +75,8 @@
     pointer-events: auto;
     width: 600px;
     max-width: 90vw;
-    height: 600px;
-    /* Fixed height to match profile section exactly */
+    min-height: 400px;
+    max-height: 70vh;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     padding: 2.5rem;
@@ -89,7 +89,7 @@
     align-items: center;
     overflow-y: auto;
     scrollbar-width: none;
-    /* Hide scrollbar for clean look */
+    transition: all 0.3s ease;
 }
 
 .content::-webkit-scrollbar {
@@ -101,13 +101,16 @@
     margin: 0 0 1rem 0;
     color: #00f2ff;
     text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+    transition: font-size 0.3s ease;
 }
 
+/* --- Profile Section --- */
 .profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
 }
 
 .profile-image-wrapper {
@@ -117,8 +120,10 @@
     overflow: hidden;
     border: 3px solid #00f2ff;
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     background: #222;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .profile-image {
@@ -130,48 +135,144 @@
 .subtitle {
     font-size: 1.2rem;
     opacity: 0.8;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .description {
-    line-height: 1.8;
-    font-size: 1.05rem;
+    line-height: 1.6;
+    font-size: 1rem;
+    max-width: 100%;
 }
 
-.coming-soon {
-    font-style: italic;
-    opacity: 0.6;
-    font-size: 2rem;
+/* --- Mobile Menu Styles --- */
+.mobile-menu-btn {
+    display: none;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 242, 255, 0.4);
+    color: #00f2ff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.1rem;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+    z-index: 100;
+}
+
+.mobile-dropdown {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 10, 10, 0.98);
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    border-radius: 15px;
+    padding: 1.2rem;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    z-index: 99;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+    pointer-events: auto;
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 14px;
     text-align: center;
-    padding: 3rem 0;
-    width: 100%;
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
+.dropdown-item.active {
+    background: rgba(0, 242, 255, 0.15);
+    color: #00f2ff;
+    text-shadow: 0 0 8px #00f2ff;
+}
+
+/* --- Footer --- */
 .footer {
-    margin-top: auto;
+    padding: 24px 0;
     font-size: 0.8rem;
     opacity: 0.4;
     pointer-events: none;
     text-align: center;
     width: 100%;
+    margin-top: auto;
 }
 
+/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
     .overlay {
-        padding: 20px;
+        padding: 30px 15px;
     }
 
     .nav {
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
+        display: none !important;
+        /* Force hide desktop nav */
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        /* Show mobile menu trigger */
+    }
+
+    .content {
+        width: 100%;
+        padding: 1.5rem;
+        height: auto;
+        min-height: auto;
+        justify-content: flex-start;
+        margin-top: 30px;
     }
 
     .title {
         font-size: 1.8rem;
     }
 
+    .profile-image-wrapper {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 1.2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .footer {
+        font-size: 0.75rem;
+        padding: 20px 10px;
+    }
+}
+
+/* Specific fix for height-constrained devices */
+@media (max-height: 700px) {
     .content {
-        padding: 1.5rem;
+        max-height: 60vh;
+    }
+
+    .profile-image-wrapper {
+        width: 90px;
+        height: 90px;
+    }
+
+    .overlay {
+        padding: 20px 15px;
     }
 }
