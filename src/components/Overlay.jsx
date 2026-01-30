@@ -127,7 +127,7 @@ const Overlay = ({ activeSection, setActiveSection }) => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -15 }}
                             transition={{ duration: 0.3 }}
-                            style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+                            className="content-inner"
                         >
                             {renderContent()}
                         </motion.div>
