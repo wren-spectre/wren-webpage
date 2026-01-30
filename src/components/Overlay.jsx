@@ -17,7 +17,7 @@ const Overlay = ({ activeSection, setActiveSection }) => {
                     <div className="profile-container">
                         <div className="profile-image-wrapper">
                             <img
-                                src="/profile/profile-wrenspectre-1.42mb.png"
+                                src={`${import.meta.env.BASE_URL}profile/profile-wrenspectre-1.42mb.png`}
                                 alt="wren spectre profile"
                                 className="profile-image"
                             />
